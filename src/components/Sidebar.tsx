@@ -1,19 +1,13 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import "./Sidebar.css";
-import HeavyRain from "../assets/HeavyRain.png";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import { SearchBar } from "./SearchBar";
+import moment from "moment";
 
-interface SidebarProps {
-  className?: string;
-  locationData: DTO.LocationDataType[];  
-}
-
-const Sidebar: FC<SidebarProps> = ({ className, locationData }) => {
+const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearchLocation, locationsNear }) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [searchInputVal, setSearchInputVal] = useState<string>("");
-  const {  } = locationData
 
   const handleCloseSearch = () => {
     setShowSearch((current) => !current);
@@ -21,7 +15,7 @@ const Sidebar: FC<SidebarProps> = ({ className, locationData }) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInputVal(e.target.value);
-  }
+  };
 
   return (
     <div className={`${className} sidebar-wrapper`}>
@@ -30,6 +24,8 @@ const Sidebar: FC<SidebarProps> = ({ className, locationData }) => {
           handleCloseSearch={handleCloseSearch}
           handleInputChange={handleInputChange}
           searchInputVal={searchInputVal}
+          handleSearchLocation={handleSearchLocation}
+          locationsNear={locationsNear}
         />
       ) : (
         <div className="sidebar-inner-wrap">
@@ -45,24 +41,29 @@ const Sidebar: FC<SidebarProps> = ({ className, locationData }) => {
           <div className="weather-image-wrap">
             <img
               className="weather-image"
-              src={HeavyRain}
+              src={`https://www.metaweather.com/static/img/weather/${locationWeather.consolidated_weather[0].weather_state_abbr}.svg`}
               alt="current weather"
             />
           </div>
 
           <div className="temp-value">
-            <h1 className="flex-centered-wrapper">15 C</h1>
+            <h1 className="flex-centered-wrapper">
+              {locationWeather.consolidated_weather[0].the_temp.toFixed(1)}
+              <span className="celcius-wrap">&#8451;</span>
+            </h1>
           </div>
 
-          <p className="temp-title">Shower</p>
+          <p className="temp-title">
+            {locationWeather.consolidated_weather[0].weather_state_name}
+          </p>
 
           <p className="flex-centered-wrapper date-text">
-            Today &bull; Fri, 5 June{" "}
+            Today &bull; {moment().format("ddd, D MMM")}
           </p>
 
           <div className="location-text-wrap">
             <AddLocationIcon className="location-icon" />
-            <p>Helsinki</p>
+            <p>{locationWeather.title}</p>
           </div>
         </div>
       )}

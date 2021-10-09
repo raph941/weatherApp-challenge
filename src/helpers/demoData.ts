@@ -152,4 +152,77 @@ const locationWeather: DTO.WeatherDataType = {
     "timezone": "Africa/Lagos"
 }
 
-export { locationWeather }
+const PlacesData: DTO.PlacesNearType[] = [
+    {
+        "distance": 101807,
+        "title": "Dublin",
+        "location_type": "City",
+        "woeid": 560743,
+        "latt_long": "53.343761,-6.249530"
+    },
+    {
+        "distance": 190060,
+        "title": "Belfast",
+        "location_type": "City",
+        "woeid": 44544,
+        "latt_long": "54.595291,-5.934520"
+    },
+    {
+        "distance": 286003,
+        "title": "Rhyl",
+        "location_type": "City",
+        "woeid": 33267,
+        "latt_long": "53.311581,-3.47234"
+    },
+    {
+        "distance": 318014,
+        "title": "Swansea",
+        "location_type": "City",
+        "woeid": 36758,
+        "latt_long": "51.623150,-3.940930"
+    },
+    {
+        "distance": 318752,
+        "title": "Liverpool",
+        "location_type": "City",
+        "woeid": 26734,
+        "latt_long": "53.409771,-2.978480"
+    },
+    {
+        "distance": 319970,
+        "title": "Blackpool",
+        "location_type": "City",
+        "woeid": 12903,
+        "latt_long": "53.825069,-3.020750"
+    },
+    {
+        "distance": 339481,
+        "title": "Preston",
+        "location_type": "City",
+        "woeid": 32566,
+        "latt_long": "53.774281,-2.707900"
+    },
+    {
+        "distance": 364868,
+        "title": "Salford",
+        "location_type": "City",
+        "woeid": 33887,
+        "latt_long": "53.489731,-2.2843"
+    },
+    {
+        "distance": 366470,
+        "title": "Glasgow",
+        "location_type": "City",
+        "woeid": 21125,
+        "latt_long": "55.857800,-4.242510"
+    },
+    {
+        "distance": 367185,
+        "title": "Manchester",
+        "location_type": "City",
+        "woeid": 28218,
+        "latt_long": "53.479599,-2.248810"
+    }
+]
+
+export { locationWeather, PlacesData }

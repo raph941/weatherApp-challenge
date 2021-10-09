@@ -1,0 +1,33 @@
+.progressbar-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-wrap > span {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.progress-percent-wrap {
+    margin-top: 2px;
+    width: 100%;
+    background: #E7E7EB;
+    border-radius: 80px;
+    height: 8px;
+}
+
+.progress-percent {
+    background: #FFEC65;
+    border-radius: 80px;
+    height: 8px;
+}
+
+.percent-attachment {
+    text-align: end;
+    font-size: 12px;
+}

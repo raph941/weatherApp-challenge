@@ -5,12 +5,14 @@
     padding-bottom: 25px;
     padding-right: 100px;
     padding-left: 100px;
+    display: flex;
+    flex-direction: column;
 }
 
 .temp-unit__wrapper {
     display: flex;
     width: 100%;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .temp-unit {
@@ -41,14 +43,15 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 60px
+    margin-top: 60px;
+    gap: 28px;
 }
 
 .forcast-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 120px;
+    flex: 1;
     height: 177px;
     background-color: #1E213A;
     justify-content: space-evenly;
@@ -91,27 +94,31 @@
     margin-top: 32px;
     display: flex;
     justify-content: space-between;
+    gap: 48px;
 }
 
 .heighlight-big-card {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 328px;
     height: 204px;
+    min-height: 204px;
     background: #1E213A;
     align-items: center;
+    flex: 1;
 }
 
 .highlights-small-card-wrap {
     display: flex;
     margin-top: 48px;
     justify-content: space-between;
+    gap: 48px;
 }
 
 .heighlight-small-card {
-    width: 328px;
+    flex: 1;
     height: 160px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -126,6 +133,58 @@
     color: #A09FB1;
     display: flex;
     justify-content: center;
+    flex: 1;
+    align-items: self-end;
+}
+
+.forcast-card-temp {
+    display: flex;
+    flex-direction: row;
+}
+
+.max-temp {
+    color: #A09FB1;
+    margin-left: 10px;
+}
+
+.navigation-icon {
+    transform: rotate(220deg);
+    font-size: 14px !important;
+    padding: 5px;
+    border-radius: 50%;
+    background: #616475;
+    margin-right: 5px;
+}
+
+.navigation-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.progressbar-wrap {
+    width: 80%
+}
+
+.heighlight-card-title {
+    font-size: 3.125rem;
+    font-weight: bold;
+}
+
+.heighlight-card-unit {
+    font-size: 1.875rem;
+}
+
+@media (min-width: 576px) and (max-width: 1199.98px) {
+    .heighlight-card-title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .heighlight-card-unit {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -156,15 +215,9 @@
     }
     .heighlight-big-card {
         flex: 1;
-        width: unset;
-        height: 384px;
-        min-height: 384px;
-        max-height: 384px;
         padding: 22px;
     }
-    .heighlight-small-card {
-        width: unset; 
-    }
+    
     .footer {
         margin-top: 96px;
         margin-bottom: 24px;

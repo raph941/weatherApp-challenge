@@ -1,37 +1,31 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Main } from '../components/Main';
-import { Sidebar } from '../components/Sidebar';
-import { locationWeather } from '../helpers/demoData';
-import { getLocationWeather, GetLocationWeatherProps } from '../helpers/makeRequest';
-import './Layout.css'
+import React, { FC, useState } from "react";
+import { Main } from "../components/Main";
+import { Sidebar } from "../components/Sidebar";
+import { locationWeather as LocationData, PlacesData } from "../helpers/demoData";
+import "./Layout.css";
 
-const defaultLocationData = [{"title":"Lagos","location_type":"City","woeid":1398823,"latt_long":"6.439180,3.423480"}];
-
-
-interface LayoutProps {
-
-}
+interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
-    const [locationData, setLocationData] = useState<any>(defaultLocationData)
-    const [userLocation, setUserLocation] = useState({
-        lat: 9.896527,
-        long: 8.858331
-    })
+  const [locationWeather] = useState<DTO.WeatherDataType>(LocationData);
+  const [locationsNear] = useState<DTO.PlacesNearType[]>(PlacesData)
 
-    // useEffect(() => {
-    //     const data = getLocationWeather(userLocation)
-    //     if (data) {
-    //         setLocationData(data)
-    //     }
-    // }, [userLocation])
+  const handleSearchLocation = (newWoeid: string | number) => {
 
-    return (
-        <div className="layout-container">
-            <Sidebar className="sidebar" locationData={locationData}/>
-            <Main className="main" weatherData={locationWeather} />
-        </div>
-    )
-}
+  }
 
-export { Layout }
+
+  return (
+    <div className="layout-container">
+      <Sidebar
+        className="sidebar"
+        locationWeather={locationWeather}
+        handleSearchLocation={handleSearchLocation}
+        locationsNear={locationsNear}
+      />
+      <Main className="main" locationWeather={locationWeather} />
+    </div>
+  );
+};
+
+export { Layout };

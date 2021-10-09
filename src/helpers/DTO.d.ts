@@ -53,4 +53,19 @@ declare namespace DTO {
         latt_long: string,
         timezone: string,
     }
+
+    export interface SidebarProps {
+        className?: string,
+        locationWeather: WeatherDataType
+        handleSearchLocation: (newWoeid: string | number) => void
+        locationsNear: PlacesNearType[]
+    }
+
+    export interface PlacesNearType {
+        distance: number,
+        title: string,
+        location_type: string,
+        woeid: number | number,
+        latt_long: string,
+    }
 }
