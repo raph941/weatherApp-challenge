@@ -1,0 +1,28 @@
+.layout-container {
+    height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    height: 100vh;
+    flex: 0.3
+}
+
+.main {
+    flex: 0.7
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-centered-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 575.98px) {
+    .layout-container {
+        flex-direction: column;
+    }
+}

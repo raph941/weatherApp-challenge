@@ -1,0 +1,86 @@
+.close-icon-wrap {
+    display: flex;
+    justify-content: flex-end;
+    color: #E7E7EB;
+    font-size: 17px;
+    margin-bottom: 45px;
+}
+
+.close-icon {
+    cursor: pointer;
+}
+
+.search-bar-wrap {
+    height: 100vh;
+    padding: 19px 20px;
+}
+
+.search-btn {
+    width: 84px;
+    height: 48px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #E7E7EB;
+    background: #3C47E9;
+    border: none;
+}
+
+.search-input {
+    background-color: transparent;
+}
+
+.search-input-wrap {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-bottom: 58px;
+}
+
+input,
+select {
+    background-color: transparent;
+    color: #616475;
+    border: 1px solid #E7E7EB;
+    padding: 14px;
+    outline: none !important;
+    height: 16px;
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border: 1px solid #616475;
+}
+
+fieldset {
+    border: 1px solid #616475;
+}
+
+.floating-locations {
+    margin: 50px 0;
+}
+
+.search-input-wrap > input {
+    flex: 1;
+}
+
+.location-select-field {
+    height: 46px;
+    border: 1px solid #616475;
+    width: 100%;
+    background: transparent;
+    color: #E7E7EB;
+}
+
+@media (max-width: 575.98px) {
+    .search-bar-wrap {
+        padding: 18px 12px;
+    }
+
+    .close-icon-wrap {
+        margin-bottom: 29px;
+    }
+
+    .search-input-wrap {
+        margin-bottom: 38px;
+    }
+}
