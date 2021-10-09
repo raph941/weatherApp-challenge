@@ -49,14 +49,16 @@ Introduce your projects by taking a screenshot, video recordings or a gif. Try t
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
 - [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Tailwind](https://tailwindcss.com/)
+- [MetaWeatherAPI](https://www.metaweather.com/api/)
 
 ## Features
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
 What features did you develop?
+* Current location based weather condition
+* 5 days weather forcase
+* search functionality for weather data for verious locations
 
 ## How To Use
 
@@ -69,8 +71,8 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 $ git clone https://github.com/your-user-name/your-project-name
 
 # Install dependencies
-$ npm install
+$ yarn install
 
 # Run the app
-$ npm start
+$ yarn start
 ```
