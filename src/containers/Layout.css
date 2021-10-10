@@ -1,28 +1,28 @@
 .layout-container {
-    min-height: 100vh;
-    display: flex;
+  min-height: 100vh;
+  display: flex;
 }
 
 .sidebar {
-    min-height: 100vh;
-    flex: 0.3
+  min-height: 100vh;
+  flex: 0.3;
 }
 
 .main {
-    flex: 0.7
+  flex: 0.7;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .flex-centered-wrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 575.98px) {
-    .layout-container {
-        flex-direction: column;
-    }
+  .layout-container {
+    flex-direction: column;
+  }
 }

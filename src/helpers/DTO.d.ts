@@ -39,7 +39,7 @@ declare namespace DTO {
         crawl_rate: number,
     }
 
-    export interface WeatherDataType {
+    export interface ForcastDataType {
         consolidated_weather: ConsolidatedDataType[],
         time: string,
         sun_rise: string,
@@ -56,9 +56,12 @@ declare namespace DTO {
 
     export interface SidebarProps {
         className?: string,
-        locationWeather: WeatherDataType
-        handleSearchLocation: (newWoeid: string | number) => void
-        locationsNear: PlacesNearType[]
+        forcastData?: ForcastDataType,
+        handleSearchLocation: (prop: { newLatlong?: string, newWoeid?: string | number }) => void,
+        locationsNear?: PlacesNearType[],
+        tempUnit: 'C' | 'F',
+        updateMyLocation: () => void,
+        handleSetLatlong: (val: string) => void,
     }
 
     export interface PlacesNearType {
@@ -67,5 +70,18 @@ declare namespace DTO {
         location_type: string,
         woeid: number | number,
         latt_long: string,
+    }
+
+    export interface SearchResultType {
+        class: string,
+        display_name: string,
+        importance: number,
+        lat: string,
+        licence: string,
+        lon: string,
+        osm_id: number,
+        type: string,
+        place_id: string,
+        boundingbox: string[],
     }
 }

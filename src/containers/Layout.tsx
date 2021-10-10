@@ -1,30 +1,90 @@
-import React, { FC, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Loader } from "../components/Loader";
 import { Main } from "../components/Main";
 import { Sidebar } from "../components/Sidebar";
-import { locationWeather as LocationData, PlacesData } from "../helpers/demoData";
+import { getUserLocation } from "../helpers";
+import {
+  getLocationWeather,
+  getPlacesNearLocation,
+} from "../helpers/makeRequest";
 import "./Layout.css";
 
-interface LayoutProps {}
+const Layout = () => {
+  const [forcastData, setForcastData] = useState<DTO.ForcastDataType>();
+  const [locationsNear, setLocationsNear] = useState<DTO.PlacesNearType[]>();
+  const [tempUnit, setTempUnit] = useState<"C" | "F">("C");
+  const [latlong, setLatlong] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-const Layout: FC<LayoutProps> = () => {
-  const [locationWeather] = useState<DTO.WeatherDataType>(LocationData);
-  const [locationsNear] = useState<DTO.PlacesNearType[]>(PlacesData)
+  const handleSearchLocation = (prop: {
+    newLatlong?: string;
+    newWoeid?: string | number;
+  }) => {
+    const { newLatlong, newWoeid } = prop;
+    setLoading(true);
+    getLocationWeather(newLatlong, newWoeid)
+      .then((data) => {
+        if (!data.hasOwnProperty("detail")) {
+          setForcastData(data);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  };
+  const handleUnitChange = (val: "C" | "F") => setTempUnit(val);
+  const handleSetLatlong = (val: string) => setLatlong(val);
+  const updateMyLocation = () => {
+    setLoading(true);
+    getUserLocation(handleSetLatlong);
+    if (latlong) {
+      getLocationWeather(latlong)
+        .then((data) => {
+          data && setForcastData(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    }
+  };
 
-  const handleSearchLocation = (newWoeid: string | number) => {
+  useEffect(() => {
+    updateMyLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [latlong]);
 
-  }
-
+  useEffect(() => {
+    if (forcastData) {
+      getPlacesNearLocation(forcastData.latt_long).then((data) => {
+        if (data) {
+          setLocationsNear(data);
+        }
+      });
+    }  
+  }, [forcastData])
 
   return (
-    <div className="layout-container">
-      <Sidebar
-        className="sidebar"
-        locationWeather={locationWeather}
-        handleSearchLocation={handleSearchLocation}
-        locationsNear={locationsNear}
-      />
-      <Main className="main" locationWeather={locationWeather} />
-    </div>
+    <Loader loading={loading}>
+      <div className="layout-container">
+        <Sidebar
+          className="sidebar"
+          handleSetLatlong={handleSetLatlong}
+          forcastData={forcastData}
+          handleSearchLocation={handleSearchLocation}
+          updateMyLocation={updateMyLocation}
+          locationsNear={locationsNear}
+          tempUnit={tempUnit}
+        />
+        <Main
+          className="main"
+          handleUnitChange={handleUnitChange}
+          forcastData={forcastData}
+          tempUnit={tempUnit}
+        />
+      </div>
+    </Loader>
   );
 };
 

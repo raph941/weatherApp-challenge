@@ -1,15 +1,23 @@
 import React, { FC } from "react";
 import moment from "moment";
 import NavigationIcon from "@mui/icons-material/Navigation";
-import { ProgressBar } from '../components/ProgressBar'
+import { ProgressBar } from "../components/ProgressBar";
 import "./Main.css";
+import { celsiusToFarenheit } from "../helpers";
 
 interface MainProps {
   className: string;
-  locationWeather: DTO.WeatherDataType;
+  forcastData?: DTO.ForcastDataType;
+  tempUnit: "C" | "F";
+  handleUnitChange: (value: "C" | "F") => void;
 }
 
-const Main: FC<MainProps> = ({ className, locationWeather }) => {
+const Main: FC<MainProps> = ({
+  className,
+  forcastData,
+  tempUnit,
+  handleUnitChange,
+}) => {
   const imageUrl = (weatherStataAbbr: string) =>
     `https://www.metaweather.com/static/img/weather/${weatherStataAbbr}.svg`;
 
@@ -17,12 +25,24 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
     <>
       <div className={className}>
         <div className="temp-unit__wrapper">
-          <span className="temp-unit bg-white mr-12">&deg;C</span>
-          <span className="temp-unit bg-gray">&deg;F</span>
+          <span
+            onClick={() => handleUnitChange("C")}
+            className={`temp-unit mr-12 ${
+              tempUnit === "C" ? "bg-white" : "bg-gray"
+            }`}
+          >
+            &#8451;
+          </span>
+          <span
+            onClick={() => handleUnitChange("F")}
+            className={`temp-unit ${tempUnit === "F" ? "bg-white" : "bg-gray"}`}
+          >
+            &#8457;
+          </span>
         </div>
 
         <div className="forcast-card__wrapper">
-          {locationWeather.consolidated_weather.map((dateData, index) => {
+          {forcastData?.consolidated_weather?.map((dateData, index) => {
             if (index > 4) {
               return undefined;
             }
@@ -44,9 +64,17 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
                 </div>
 
                 <div className="forcast-card-temp">
-                  <span>{dateData.min_temp.toFixed(1)}&#8451;</span>
+                  <span>
+                    {tempUnit === "C"
+                      ? dateData.min_temp.toFixed(1)
+                      : celsiusToFarenheit(dateData.min_temp).toFixed(1)}
+                    {tempUnit === "C" ? <>&#8451;</> : <>&#8457;</>}
+                  </span>
                   <span className="max-temp">
-                    {dateData.max_temp.toFixed(1)}&#8451;
+                    {tempUnit === "C"
+                      ? dateData.max_temp.toFixed(1)
+                      : celsiusToFarenheit(dateData.max_temp).toFixed(1)}
+                    {tempUnit === "C" ? <>&#8451;</> : <>&#8457;</>}
                   </span>
                 </div>
               </div>
@@ -60,7 +88,7 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
             <div className="heighlight-big-card">
               <div>Wind Status</div>
               <div className="heighlight-card-title">
-                {locationWeather.consolidated_weather[0].wind_speed.toFixed(1)}{" "}
+                {forcastData?.consolidated_weather[0].wind_speed.toFixed(1)}{" "}
                 <span className="heighlight-card-unit">mph</span>
               </div>
               <div className="navigation-wrap">
@@ -72,11 +100,15 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
             <div className="heighlight-big-card">
               <div>Humidity</div>
               <div className="heighlight-card-title">
-                {locationWeather.consolidated_weather[0].humidity.toFixed(1)}{" "}
+                {forcastData?.consolidated_weather[0].humidity.toFixed(1)}{" "}
                 <span className="heighlight-card-unit">%</span>
               </div>
               <div className="navigation-wrap">
-                <ProgressBar percentage={locationWeather.consolidated_weather[0].humidity} />
+                <ProgressBar
+                  percentage={
+                    forcastData?.consolidated_weather[0].humidity || 0
+                  }
+                />
               </div>
             </div>
           </div>
@@ -85,7 +117,7 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
             <div className="heighlight-small-card">
               <div>Visibility</div>
               <div className="heighlight-card-title">
-                {locationWeather.consolidated_weather[0].visibility.toFixed(1)}{" "}
+                {forcastData?.consolidated_weather[0].visibility.toFixed(1)}{" "}
                 <span className="heighlight-card-unit">miles</span>
               </div>
             </div>
@@ -93,7 +125,7 @@ const Main: FC<MainProps> = ({ className, locationWeather }) => {
             <div className="heighlight-small-card">
               <div>Air Pressure</div>
               <div className="heighlight-card-title">
-                {locationWeather.consolidated_weather[0].air_pressure.toFixed(1)}{" "}
+                {forcastData?.consolidated_weather[0].air_pressure.toFixed(1)}{" "}
                 <span className="heighlight-card-unit">mb</span>
               </div>
             </div>

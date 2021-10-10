@@ -1,15 +1,20 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import "./SearchBar.css";
 import CloseIcon from "@mui/icons-material/Close";
 import FadeIn from "react-fade-in";
+import { getUserLocationSearch } from "../helpers/makeRequest";
 
 interface SearchBarProps {
   className?: string;
   handleCloseSearch: () => void;
   searchInputVal: string;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  locationsNear: DTO.PlacesNearType[];
-  handleSearchLocation: (newWoeid: string | number) => void;
+  locationsNear?: DTO.PlacesNearType[];
+  handleSearchLocation: (prop: {
+    newLatlong?: string;
+    newWoeid?: string | number;
+  }) => void;
+  handleSetLatlong: (val: string) => void;
 }
 
 const SearchBar: FC<SearchBarProps> = ({
@@ -20,7 +25,18 @@ const SearchBar: FC<SearchBarProps> = ({
   searchInputVal,
   locationsNear,
 }) => {
-  const [selectValue, setSelectVal] = useState<number | string>(locationsNear[0].woeid)
+  const [selectValue, setSelectVal] = useState<number | string>(
+    locationsNear?.[0].woeid || ''
+  );
+  const [searchResult, setSearchResult] = useState<DTO.SearchResultType[]>([]);
+
+  useEffect(() => {
+    if (searchInputVal) {
+      getUserLocationSearch(searchInputVal).then((data) => {
+        setSearchResult(data);
+      });
+    }
+  }, [searchInputVal]);
 
   return (
     <div className={`${className} search-bar-wrap`}>
@@ -40,20 +56,37 @@ const SearchBar: FC<SearchBarProps> = ({
 
         <select
           onChange={(e) => {
-            setSelectVal(e.target.value)
-            handleSearchLocation(e.target.value)
+            setSelectVal(e.target.value);
+            handleSearchLocation({ newWoeid: e.target.value });
           }}
           className="location-select-field"
           value={selectValue}
         >
-          {locationsNear.map((location) => (
-            <option className="select-option" value={location.woeid}>{location.title}</option>
+          {locationsNear?.map((location) => (
+            <option className="select-option" value={location.woeid}>
+              {location.title}
+            </option>
           ))}
         </select>
 
-        <p className="floating-locations">Barcelona</p>
-
-        <p className="floating-locations">Long Beach</p>
+        <div>
+          <ul>
+            {searchResult?.map(
+              (result, index) =>
+                index < 6 && (
+                  <li
+                    onClick={() =>
+                      handleSearchLocation({
+                        newLatlong: `${result.lat},${result.lon}`,
+                      })
+                    }
+                  >
+                    {result.display_name}
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
       </FadeIn>
     </div>
   );

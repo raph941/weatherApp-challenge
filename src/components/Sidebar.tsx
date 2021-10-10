@@ -4,10 +4,25 @@ import "./Sidebar.css";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import { SearchBar } from "./SearchBar";
 import moment from "moment";
+import { celsiusToFarenheit } from "../helpers";
 
-const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearchLocation, locationsNear }) => {
+const Sidebar: FC<DTO.SidebarProps> = ({
+  className,
+  forcastData,
+  handleSearchLocation,
+  locationsNear,
+  tempUnit,
+  updateMyLocation,
+  handleSetLatlong,
+}) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [searchInputVal, setSearchInputVal] = useState<string>("");
+  const tempValue =
+    tempUnit === "C"
+      ? forcastData?.consolidated_weather[0].the_temp.toFixed(1)
+      : celsiusToFarenheit(
+          forcastData?.consolidated_weather[0].the_temp || 0
+        ).toFixed(1);
 
   const handleCloseSearch = () => {
     setShowSearch((current) => !current);
@@ -26,6 +41,7 @@ const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearc
           searchInputVal={searchInputVal}
           handleSearchLocation={handleSearchLocation}
           locationsNear={locationsNear}
+          handleSetLatlong={handleSetLatlong}
         />
       ) : (
         <div className="sidebar-inner-wrap">
@@ -33,7 +49,7 @@ const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearc
             <button onClick={handleCloseSearch} className="button">
               Search for places
             </button>
-            <div className="gps-icon-wrap">
+            <div className="gps-icon-wrap" onClick={() => updateMyLocation()}>
               <GpsFixedIcon className="gps-icon" />
             </div>
           </div>
@@ -41,20 +57,22 @@ const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearc
           <div className="weather-image-wrap">
             <img
               className="weather-image"
-              src={`https://www.metaweather.com/static/img/weather/${locationWeather.consolidated_weather[0].weather_state_abbr}.svg`}
+              src={`https://www.metaweather.com/static/img/weather/${forcastData?.consolidated_weather[0].weather_state_abbr}.svg`}
               alt="current weather"
             />
           </div>
 
           <div className="temp-value">
             <h1 className="flex-centered-wrapper">
-              {locationWeather.consolidated_weather[0].the_temp.toFixed(1)}
-              <span className="celcius-wrap">&#8451;</span>
+              {tempValue}
+              <span className="celcius-wrap">
+                {tempUnit === "C" ? <>&#8451;</> : <>&#8457;</>}
+              </span>
             </h1>
           </div>
 
           <p className="temp-title">
-            {locationWeather.consolidated_weather[0].weather_state_name}
+            {forcastData?.consolidated_weather[0].weather_state_name}
           </p>
 
           <p className="flex-centered-wrapper date-text">
@@ -63,7 +81,7 @@ const Sidebar: FC<DTO.SidebarProps> = ({ className, locationWeather, handleSearc
 
           <div className="location-text-wrap">
             <AddLocationIcon className="location-icon" />
-            <p>{locationWeather.title}</p>
+            <p>{forcastData?.title}</p>
           </div>
         </div>
       )}
