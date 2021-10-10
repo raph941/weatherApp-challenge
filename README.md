@@ -39,11 +39,6 @@
 
 https://www.loom.com/share/f407881aab764dea92bbf73d30662979
 
-Introduce your projects by taking a screenshot, video recordings or a gif. Try to tell us about the solution you built by answering the following:
-
-- Where can I see your demo?
-- What was your experience building it.
-
 ### Built With
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
