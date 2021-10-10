@@ -65,6 +65,9 @@ button:hover {
 .weather-image-wrap {
   display: flex;
   justify-content: center;
+  background-image: url('../assets/Cloud-background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .weather-image {

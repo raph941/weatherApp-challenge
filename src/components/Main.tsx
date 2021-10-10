@@ -52,7 +52,7 @@ const Main: FC<MainProps> = ({
             if (index === 0) formattedDate = "Tomorrow";
 
             return (
-              <div className="forcast-card">
+              <div className="forcast-card" key={index}>
                 <p className="forcast-card-title">{formattedDate}</p>
 
                 <div className="forcast-card-image__wrap">
