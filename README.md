@@ -37,7 +37,8 @@
 
 ## Overview
 
-https://github.com/raph941/weatherApp-challenge/blob/master/src/assets/React%20App.mp4
+https://www.loom.com/share/519704c012394d09bbe14deb0ca18563
+
 Introduce your projects by taking a screenshot, video recordings or a gif. Try to tell us about the solution you built by answering the following:
 
 - Where can I see your demo?
