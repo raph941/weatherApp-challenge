@@ -10,7 +10,7 @@
 }
 
 .sidebar-inner-wrap {
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -79,12 +79,11 @@ button:hover {
   font-family: Raleway;
   font-style: normal;
   font-weight: 500;
-  /* font-size: 144px; */
-  /* line-height: 169px; */
 }
 
 .temp-value > h1 {
   font-size: 80px;
+  margin: 0;
 }
 
 .temp-title {
@@ -133,5 +132,12 @@ button:hover {
   }
   .sidebar-wrapper {
     min-height: 100vh;
+  }
+  .temp-value > h1 {
+    font-size: 60px;
+  }
+  .weather-image {
+    width: 140px;
+    height: 140px;
   }
 }
